@@ -7,10 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
+  * { box-sizing: border-box; }
+
   body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg,#ffe5ef,#fff6fb);
+    background: radial-gradient(circle at top,#ffeaf2,#fff);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -19,57 +21,68 @@
     overflow-x: hidden;
   }
 
+  /* ===== THƯ ===== */
   .letter {
-    width: 420px;
+    width: 440px;
     height: 300px;
-    background: #ffb6c9;
-    border-radius: 25px;
+    background: linear-gradient(145deg,#ff9db6,#ff6f96);
+    border-radius: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     position: relative;
-    box-shadow: 0 12px 30px rgba(255, 80, 120, 0.55);
-    transition: transform 0.45s, box-shadow 0.45s;
+    box-shadow: 
+      0 25px 60px rgba(255,105,135,0.55),
+      inset 0 6px 18px rgba(255,255,255,0.35);
+    transition: transform .45s ease, box-shadow .45s ease;
     overflow: hidden;
-    border: 5px solid #ff8fb6;
+    border: 4px solid rgba(255,255,255,0.35);
+  }
+
+  .letter::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg,rgba(255,255,255,.25),transparent);
   }
 
   .letter:hover {
-    transform: scale(1.08) translateY(-8px);
-    box-shadow: 0 18px 55px rgba(255, 80, 120, 0.7);
+    transform: translateY(-10px) scale(1.08);
+    box-shadow: 
+      0 35px 75px rgba(255,80,120,.7),
+      inset 0 6px 18px rgba(255,255,255,.4);
   }
 
   .letter.opening {
-    animation: openLetter 0.8s forwards ease;
+    animation: openLetter .85s forwards ease-in-out;
   }
 
   @keyframes openLetter {
     0% { transform: scale(1); opacity: 1; }
-    40% { transform: scale(1.25); }
+    45% { transform: scale(1.3); }
     100% { transform: scale(0); opacity: 0; }
   }
 
   .letter-text {
-    color: white;
-    font-size: 30px;
+    color: #fff;
+    font-size: 32px;
     font-weight: 700;
     text-align: center;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 5;
+    text-shadow: 0 4px 12px rgba(0,0,0,.35);
+    margin-bottom: 18px;
+    z-index: 2;
   }
 
-  /* ❤️ TRÁI TIM EMOJI ĐẸP NGAY BỨC THƯ ❤️ */
+  /* ===== TIM TRONG THƯ ===== */
   .heart-img {
     position: absolute;
-    bottom: 18px;
-    font-size: 95px;
+    bottom: 20px;
+    font-size: 100px;
+    animation: heartPulse 1.8s infinite ease-in-out;
+    filter: drop-shadow(0 6px 14px rgba(255,0,120,.45));
     z-index: 1;
-    animation: heartPulse 1.7s infinite ease-in-out;
-    filter: drop-shadow(0 5px 12px rgba(255,0,120,0.45));
     pointer-events: none;
   }
 
@@ -79,84 +92,149 @@
     100% { transform: scale(1); }
   }
 
-  /* TRÁI TIM BAY */
+  /* ===== TIM BAY ===== */
   .floating-heart {
     position: fixed;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     transform: rotate(-45deg);
     background: #ff2d55;
     border-radius: 8px;
-    animation: fly 2.6s ease-out forwards;
+    animation: fly 2.7s ease-out forwards;
     pointer-events: none;
-    box-shadow: inset -6px -8px 12px rgba(0,0,0,0.25),
-                0 0 10px rgba(255,0,130,0.9);
+    box-shadow: 
+      inset -6px -8px 14px rgba(0,0,0,.25),
+      0 0 12px rgba(255,0,130,.9);
   }
 
   .floating-heart::before,
   .floating-heart::after {
     content: "";
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     background: #ff2d55;
     border-radius: 50%;
   }
 
-  .floating-heart::before { top: -20px; left: 0; }
-  .floating-heart::after { left: 20px; top: 0; }
+  .floating-heart::before { top: -19px; left: 0; }
+  .floating-heart::after { left: 19px; top: 0; }
 
   @keyframes fly {
-    0% { transform: translateY(0) rotate(-45deg) scale(0.7); opacity: 1; }
-    50% { transform: translateY(-140px) rotate(-30deg) scale(1.1); }
-    100% { transform: translateY(-260px) rotate(-60deg) scale(1.35); opacity: 0; }
+    0% { transform: translateY(0) rotate(-45deg) scale(.7); opacity: 1; }
+    60% { transform: translateY(-160px) rotate(-30deg) scale(1.15); }
+    100% { transform: translateY(-320px) rotate(-60deg) scale(1.35); opacity: 0; }
   }
 
+  /* ===== LOGIN BOX ===== */
   .login-box {
     display: none;
     width: 100%;
-    max-width: 480px;
-    padding: 28px;
-    border-radius: 16px;
-    background: white;
-    box-shadow: 0 10px 35px rgba(255,0,90,0.15);
-    margin-top: 24px;
-    animation: fadeInBox 0.8s ease forwards;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 22px;
+    background: rgba(255,255,255,.95);
+    box-shadow: 0 18px 45px rgba(255,0,90,.18);
+    margin-top: 26px;
+    animation: fadeInBox .8s ease forwards;
+    backdrop-filter: blur(6px);
   }
 
   @keyframes fadeInBox {
-    0% { opacity: 0; transform: translateY(20px);}
-    100% { opacity: 1; transform: translateY(0);}
+    from { opacity: 0; transform: translateY(30px);}
+    to { opacity: 1; transform: translateY(0);}
+  }
+
+  .login-box h2 {
+    margin: 0 0 6px;
+    color: #ff3d7a;
+  }
+
+  .lead {
+    margin: 0 0 18px;
+    color: #777;
+    font-size: 14px;
+  }
+
+  label {
+    font-size: 13px;
+    color: #999;
   }
 
   #account {
     font-weight: 700;
     color: #ff408b;
     font-size: 20px;
-    min-height: 26px;
+    min-height: 28px;
+    margin-bottom: 10px;
   }
 
   input[type=text] {
-    width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #eee;
-    font-size: 16px; font-weight: 700; color: #ff408b;
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ff408b;
+    outline: none;
   }
 
-  .row { display: flex; gap: 10px; margin-top: 10px }
-  .btn { flex: 1; padding: 10px 12px; border-radius: 10px; border: 0; cursor: pointer; font-weight: 700; }
-  .btn.login { background: #ff5972; color: white; }
-  .btn.exit { background: transparent; border: 1px solid #eee; }
-  .msg { height: 20px; color: #d23a4a; margin-top: 8px; }
+  input[type=text]:focus {
+    border-color: #ff7aa2;
+    box-shadow: 0 0 0 3px rgba(255,122,162,.2);
+  }
 
+  .row {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: 0;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .btn.login {
+    background: linear-gradient(135deg,#ff5f87,#ff2d6f);
+    color: white;
+    box-shadow: 0 8px 18px rgba(255,45,110,.4);
+  }
+
+  .btn.login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(255,45,110,.55);
+  }
+
+  .btn.exit {
+    background: transparent;
+    border: 1px solid #eee;
+  }
+
+  .msg {
+    height: 22px;
+    color: #d23a4a;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  /* ===== GÕ CHỮ ===== */
   .typing-char {
     display: inline-block;
     opacity: 0;
-    transform: translateY(-20px);
-    animation: charAppear 0.35s forwards;
+    transform: translateY(-18px);
+    animation: charAppear .35s forwards;
   }
 
   @keyframes charAppear {
-    0% { opacity: 0; transform: translateY(-20px);}
-    60% { opacity: 1; transform: translateY(5px);}
+    0% { opacity: 0; transform: translateY(-18px);}
+    70% { opacity: 1; transform: translateY(6px);}
     100% { opacity: 1; transform: translateY(0);}
   }
 </style>
@@ -169,24 +247,18 @@
 
 <div class="letter" id="letter">
   <div class="letter-text">Nhấn để mở thư</div>
-
-  <!-- ❤️ Emoji heart -->
   <div class="heart-img">❤️</div>
 </div>
 
 <div class="login-box" id="loginBox">
-  <h2>Đăng nhập</h2>
-  <p class="lead">Nhập mật khẩu để tiếp tục tới trang chúc mừng.</p>
+  <h2>Trái tim</h2>
+  <p class="lead">Nhập mật khẩu để truy cập và trái tim đi ní.</p>
 
-  <div class="field">
-    <label>Tài khoản</label>
-    <div id="account"></div>
-  </div>
+  <label>Tài khoản</label>
+  <div id="account"></div>
 
-  <div class="field">
-    <label>Mật khẩu</label>
-    <input type="text" id="password" placeholder="Nhập mật khẩu" />
-  </div>
+  <label>Mật khẩu</label>
+  <input type="text" id="password" placeholder="Nhập mật khẩu">
 
   <div class="row">
     <button class="btn login" id="loginBtn">Đăng nhập</button>
@@ -206,11 +278,10 @@ const nameStr = 'VuongBaoHan❤';
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "floating-heart";
-  heart.style.left = (Math.random() * window.innerWidth) + "px";
+  heart.style.left = Math.random() * window.innerWidth + "px";
   heart.style.bottom = "0px";
   document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 2600);
+  setTimeout(() => heart.remove(), 2700);
 }
 
 letter.addEventListener('click', () => {
@@ -229,12 +300,12 @@ letter.addEventListener('click', () => {
 });
 
 let i = 0;
-function typeNameSmooth(){
-  if(i < nameStr.length){
+function typeNameSmooth() {
+  if (i < nameStr.length) {
     const span = document.createElement('span');
     span.textContent = nameStr[i];
     span.className = 'typing-char';
-    span.style.animationDelay = (i*0.12) + 's';
+    span.style.animationDelay = i * .12 + 's';
     accountEl.appendChild(span);
     i++;
     setTimeout(typeNameSmooth, 120);
@@ -248,7 +319,7 @@ const CORRECT = '25122007';
 
 loginBtn.addEventListener('click', () => {
   msg.textContent = '';
-  if(pwd.value === CORRECT){
+  if (pwd.value === CORRECT) {
     window.location.href = 'SinhNhat.html';
   } else {
     msg.textContent = 'Sai rồi thử lại đi';
@@ -265,7 +336,9 @@ document.getElementById('exitBtn').addEventListener('click', () => {
   window.location.href = 'about:blank';
 });
 
-pwd.addEventListener('keydown', e => { if(e.key==='Enter') loginBtn.click(); });
+pwd.addEventListener('keydown', e => {
+  if (e.key === 'Enter') loginBtn.click();
+});
 </script>
 
 </body>

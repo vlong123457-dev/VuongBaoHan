@@ -22,16 +22,72 @@ body{
   overflow:hidden;
   position:relative;
 }
+
+/* 💖💖💖 HIỆU ỨNG HỒNG LÃNG MẠN 💖💖💖 */
+.pink-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center,
+        rgba(255, 170, 200, 0.35),
+        rgba(255, 120, 160, 0.20),
+        rgba(255, 90, 140, 0.10),
+        transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.romantic-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 40% 30%,
+        rgba(255, 150, 200, 0.25),
+        rgba(255, 110, 160, 0.15),
+        transparent 70%);
+    animation: glowPulse 4s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes glowPulse {
+    0% { opacity: 0.25; }
+    100% { opacity: 0.45; }
+}
+/* 💖 END 💖 */
+
+/* ❤️❤️❤️ HIỆU ỨNG TRÁI TIM RƠI ❤️❤️❤️ */
+.heart {
+    position: fixed;
+    top: -20px;
+    left: 0;
+    color: red;
+    font-size: 20px;
+    pointer-events: none;
+    animation: fall linear forwards;
+    z-index: 9999;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(110vh) scale(0.8); opacity: 0; }
+}
+/* ❤️ END ❤️ */
+
 .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .card{
   width:100%;max-width:980px;border-radius:20px;padding:28px 30px;
   background:rgba(255,255,255,0.85);
   box-shadow:0 10px 30px rgba(0,0,0,0.12);
   position:relative;overflow:hidden;
+  z-index: 3; /* ĐỂ TRÊN HIỆU ỨNG */
 }
 .top{display:flex;gap:20px;align-items:center}
 
-/* Avatar */
 .avatar{
   width:110px;
   height:110px;
@@ -56,7 +112,6 @@ body{
   align-items:flex-start;
 }
 
-/* ===== ẢNH BÁNH KEM ===== */
 .cake{
   flex:0 0 280px;
   background:linear-gradient(180deg,#fff8f4,#ffeef3);
@@ -68,7 +123,6 @@ body{
   overflow:hidden;
 }
 
-/* Nút phát nhạc */
 #playMusicBtn{
   cursor:pointer;
   padding:14px 22px;
@@ -77,9 +131,47 @@ body{
   color:#fff;
   text-align:center;
   font-weight:600;
+  position:relative;
 }
 
-/* Nút tiếp theo */
+/* ★★★ MENU NHẠC ★★★ */
+.music-menu {
+    position: absolute;
+    top: 0;
+    left: 105%;
+    background: rgba(255,255,255,0.95);
+    border-radius: 12px;
+    padding: 12px;
+    width: 160px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.25s ease;
+    z-index: 500;
+}
+
+.music-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.music-menu button {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #ff8aa0;
+    color: white;
+    font-weight: 600;
+}
+
+.music-menu button:last-child {
+    background: #ff5972;
+}
+
+
 .next-text{
   text-align:center;font-size:22px;margin-top:20px;
   font-weight:600;color:#ff5972;
@@ -90,7 +182,6 @@ body{
   display:inline-block;
 }
 
-/* Container bên phải */
 .right-container {
   display: flex;
   flex-direction: column;
@@ -103,8 +194,6 @@ body{
   align-items: center;
 }
 
-
-/* ⭐⭐ THƯ DẠNG POPUP ⭐⭐ */
 #letterPopup{
   position:fixed;
   top:0;left:0;
@@ -149,7 +238,6 @@ body{
   font-weight:600;
 }
 
-/* Ảnh chạy */
 .image-container{
   position:fixed;
   top:0; left:0;
@@ -168,10 +256,108 @@ body{
   border-radius:12px;
   margin:0 5px;
 }
+
+#giftBox{
+  position:fixed;
+  bottom:50px;
+  left:50%;
+  transform:translateX(-50%);
+  width:150px;
+  display:none;
+  cursor:pointer;
+  z-index:1200;
+  animation:bounce 1.1s infinite ease-in-out;
+}
+#giftContent > div {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translate(-50%,0)}
+  50%{transform:translate(-50%,-25px)}
+}
 </style>
 </head>
 
 <body>
+<!-- 🎁 GIFT CONTENT -->
+<div id="giftContent" style="
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+">
+  <div style="
+    width:90%;
+    max-width:520px;
+    background:#fff0f6;
+    border-radius:18px;
+    padding:24px;
+    text-align:center;
+    animation: popupShow .4s ease;
+    position:relative;
+
+  ">
+<!-- NÚT ĐÓNG -->
+<div id="closeGift" style="
+  position:absolute;
+  top:12px;
+  right:16px;
+  font-size:22px;
+  font-weight:700;
+  color:#ff5972;
+  cursor:pointer;
+">
+  ✕
+</div>
+
+    <!-- TEXT STEP -->
+    <div id="giftText">
+      <div style="font-size:17px;line-height:1.6;">
+        Bởi vì tôi không có ảnh đẹp nên đưa ní ảnh dìm nhưng mà vẫn tạm ổn xíu vậy chứ đã xấu mà còn đưa ảnh xấu nữa thì nó kì.
+      </div>
+      <div id="giftNextText" style="
+        margin-top:18px;
+        color:#ff5972;
+        font-weight:600;
+        cursor:pointer;
+      ">
+        Tiếp theo →
+      </div>
+    </div>
+
+    <!-- IMAGE STEP -->
+    <div id="giftGallery" style="display:none;">
+      <img id="giftImg" src="" style="
+  width:100%;
+  max-height:55vh;
+  object-fit:contain;
+  border-radius:12px;
+  margin-bottom:10px;
+">
+
+      <div id="giftCaption" style="
+        font-size:14px;
+        color:#555;
+        margin-bottom:12px;
+      "></div>
+
+      <div style="display:flex;justify-content:space-between;">
+        <span id="prevImg" style="cursor:pointer;font-size:20px;">⬅️</span>
+        <span id="nextImg" style="cursor:pointer;font-size:20px;">➡️</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 💖 HIỆU ỨNG HỒNG LÃNG MẠN (vừa thêm) 💖 -->
+<div class="pink-overlay"></div>
+<div class="romantic-glow"></div>
 
 <div class="wrap">
   <div class="card">
@@ -191,12 +377,11 @@ body{
     <div class="message">
       Chúc mừng sinh nhật ní nha.  
       Tui hy vọng tuổi mới của ní sẽ có thật nhiều niềm vui, dễ thương và ít phiền muộn hơn.  
-      Không biết từ bao giờ, chỉ cần nhìn thấy tên ní hiện lên là tự nhiên trong lòng tui vui hơn...
+      Không biết từ bao giờ, chỉ cần nhìn thấy tên ní hiện lên là tự nhiên trong lòng tui vui hơn.
     </div>
 
     <div class="scene">
 
-      <!-- ⭐ Ảnh bánh kem ⭐ -->
       <div class="cake">
           <img src="banhkem.jpg" 
                style="width:100%;height:auto;display:block;border-radius:20px;">
@@ -206,11 +391,9 @@ body{
           </div>
       </div>
 
-      <!-- Bên phải -->
       <div class="right-container">
         <div class="right-top">
 
-          <!-- ⭐ Nút mở thư ⭐ -->
           <div id="openLetterBtn" class="card-front" 
                style="
                    width:120px;height:70px;
@@ -221,10 +404,21 @@ body{
             📩
           </div>
 
-          <div id="playMusicBtn">🎵 Phát nhạc</div>
+          <!-- ★★★ NÚT PHÁT NHẠC + MENU ★★★ -->
+          <div id="playMusicBtn">
+            🎵 Phát nhạc
+
+            <div id="musicMenu" class="music-menu">
+              <button onclick="playSong('song1.mp3')">Bài hát 1</button>
+              <button onclick="playSong('song2.mp3')">Bài hát 2</button>
+              <button onclick="playSong('song3.mp3')">Bài hát 3</button>
+              <button onclick="togglePause()" id="pauseBtn">Tạm dừng</button>
+            </div>
+
+          </div>
         </div>
 
-        <div class="next-text" id="nextBtn">Tiếp theo</div>
+        <div class="next-text" id="nextBtn">Bí mật</div>
       </div>
 
     </div>
@@ -232,7 +426,6 @@ body{
   </div>
 </div>
 
-<!-- ⭐ POPUP THƯ ⭐ -->
 <div id="letterPopup">
   <div class="letter-box">
     <div style="font-size:18px;font-weight:600;">Gửi ní,</div>
@@ -265,22 +458,43 @@ body{
   </div>
 </div>
 
+<img id="giftBox" src="hopqua.jpg" />
+
 <script>
+
+/* ❤️ TẠO TRÁI TIM RƠI LIÊN TỤC ❤️ */
 function spawnHeart(){
   const h=document.createElement("div");
   h.className="heart";
-  const size=14+Math.random()*10;
-  h.style.width=size+"px";h.style.height=size+"px";
-  h.style.left=Math.random()*100+"vw";
+  h.textContent = "❤️";
+
+  const size = 14 + Math.random() * 18;
+  h.style.fontSize = size + "px";
+  h.style.left = Math.random() * 100 + "vw";
+
   document.body.appendChild(h);
-  const duration=4000+Math.random()*3000;
+
+  const duration = 4000 + Math.random() * 3000;
+
   h.animate([
-    { transform:"translateY(0) rotate(-45deg)", opacity:0.8 },
-    { transform:"translateY(100vh) rotate(-45deg)", opacity:0 }
+    { transform:"translateY(0) scale(1)", opacity:0.9 },
+    { transform:"translateY(100vh) scale(0.8)", opacity:0 }
   ],{duration:duration,easing:"linear"});
+
   setTimeout(()=>h.remove(),duration);
 }
-setInterval(spawnHeart,500);
+let heartInterval = setInterval(spawnHeart, 350);
+function stopHearts() {
+  clearInterval(heartInterval);
+  document.querySelectorAll(".heart").forEach(h => h.remove());
+}
+
+function startHearts() {
+  heartInterval = setInterval(spawnHeart, 350);
+}
+
+/* ❤️ END ❤️ */
+
 
 // ===== POPUP THƯ =====
 const openLetterBtn=document.getElementById('openLetterBtn');
@@ -290,26 +504,127 @@ const closeLetterBtn=document.getElementById('closeLetterBtn');
 openLetterBtn.onclick=()=>{ letterPopup.style.display='flex'; };
 closeLetterBtn.onclick=()=>{ letterPopup.style.display='none'; };
 
-// Phát nhạc
-const playMusicBtn=document.getElementById('playMusicBtn');
-const music=new Audio('cmsn6.mp3');
-playMusicBtn.onclick=()=>{music.play()};
+// ===== ★★★ MUSIC MENU LOGIC ★★★ =====
+let audio = new Audio();
+let isPaused = false;
 
-// Ảnh chạy
-const nextBtn = document.getElementById('nextBtn');
-const strip = document.getElementById('imageStrip');
-const container = document.getElementById('imageContainer');
-const audio = new Audio('cmsn6.mp3');
+function playSong(src) {
+    audio.src = src;
+    audio.play();
+    isPaused = false;
+    document.getElementById("pauseBtn").textContent = "Tạm dừng";
+}
+
+function togglePause() {
+    if (!isPaused) {
+        audio.pause();
+        document.getElementById("pauseBtn").textContent = "Tiếp tục";
+    } else {
+        audio.play();
+        document.getElementById("pauseBtn").textContent = "Tạm dừng";
+    }
+    isPaused = !isPaused;
+}
+
+const playMusicBtn = document.getElementById("playMusicBtn");
+const musicMenu = document.getElementById("musicMenu");
+
+playMusicBtn.addEventListener("mouseenter", () => {
+    musicMenu.classList.add("active");
+});
+
+playMusicBtn.addEventListener("mouseleave", () => {
+    setTimeout(() => {
+        if (!musicMenu.matches(":hover"))
+            musicMenu.classList.remove("active");
+    }, 200);
+});
+
+musicMenu.addEventListener("mouseleave", () => {
+    musicMenu.classList.remove("active");
+});
+
+// ===== ẢNH CHẠY =====
+const nextBtn=document.getElementById('nextBtn');
+const strip=document.getElementById('imageStrip');
+const container=document.getElementById('imageContainer');
+const giftBox = document.getElementById('giftBox');
 
 nextBtn.onclick = () => {
+  stopHearts(); // ⛔ tạm dừng tim rơi
+
   container.style.display = 'flex';
   const duration = 7000;
+
   strip.animate([
     { transform: `translateX(${window.innerWidth}px)` },
     { transform: `translateX(-${strip.scrollWidth}px)` }
   ], { duration: duration, easing: 'linear', fill: 'forwards' })
-  .onfinish = () => { audio.play(); };
+  .onfinish = () => {
+      giftBox.style.display = "block";
+  };
 };
+
+// ===== CLICK HỘP QUÀ =====
+giftBox.onclick = () => {
+    giftBox.style.animation = "none";
+    giftBox.animate([
+        { transform: "translateX(-50%) scale(1)", opacity: 1 },
+        { transform: "translateX(-50%) scale(1.25)", opacity: 0 }
+    ], { duration: 550, easing: "ease-out" }).onfinish = () => {
+        giftBox.style.display = "none";
+        document.getElementById("giftContent").style.display = "flex";
+    };
+};
+const images = [
+  { src: "anhdim1.jpg", cap: "Bức này là năm tôi vừa vào lớp 10" },
+  { src: "anhdim2.jpg", cap: "Bức 1 và bức 2 này là tui bị chụp lén" },
+  { src: "anhdim3.jpg", cap: "4 ảnh dìm thì cũng phải cho 1 bức tự chụp bth mà đúg hog" },
+  { src: "anhdim4.jpg", cap: "Bức này là đầu năm 12 vô học bị chụp lén" },
+  { src: "anhdim5.jpg", cap: "Bức này là năm tui lớp 6 " }
+];
+
+
+let currentIndex = 0;
+
+const giftText = document.getElementById("giftText");
+const giftGallery = document.getElementById("giftGallery");
+const giftImg = document.getElementById("giftImg");
+const giftCaption = document.getElementById("giftCaption");
+
+document.getElementById("giftNextText").onclick = () => {
+  giftText.style.display = "none";
+  giftGallery.style.display = "block";
+  showImage(0);
+};
+
+function showImage(i) {
+  currentIndex = (i + images.length) % images.length;
+  giftImg.src = images[currentIndex].src;
+  giftCaption.textContent = images[currentIndex].cap;
+
+  // reset mặc định
+  giftImg.style.maxWidth = "100%";
+
+  // nếu là ảnh số 5 (index = 4) thì cho rộng hơn chút
+  if (currentIndex === 4) {
+    giftImg.style.maxWidth = "120%";
+  }
+}
+
+
+document.getElementById("prevImg").onclick = () => showImage(currentIndex - 1);
+document.getElementById("nextImg").onclick = () => showImage(currentIndex + 1);
+document.getElementById("closeGift").onclick = () => {
+  document.getElementById("giftContent").style.display = "none";
+
+  startHearts(); // ❤️ bật lại hiệu ứng tim rơi
+
+  // reset lại trạng thái ban đầu
+  document.getElementById("giftText").style.display = "block";
+  document.getElementById("giftGallery").style.display = "none";
+};
+
 </script>
 
 </body>
